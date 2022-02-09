@@ -4,4 +4,3 @@ This repo tracks my progress in learning algorithms. It contains helpful resourc
 # Helpful links
 Kattis - https://open.kattis.com/
 Kattis profile - https://open.kattis.com/users/royce-hoe/
-Book on algos - https://edu.anarcho-copy.org/Algorithm/grokking-algorithms-illustrated-programmers-curious.pdf
