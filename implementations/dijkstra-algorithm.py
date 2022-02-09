@@ -13,4 +13,9 @@ Dikstra's algorithm:
 
 Note: The cost of traveling from one node to another is called weight. Dikstra's algorithm is used on weighted graphs.
 
+https://www.youtube.com/watch?v=XB4MIexjvY0 [Indian YouTuber doing the lord's work]
+
+Implementation:
+3 hash tables - Graph, costs, parents
+
 """
