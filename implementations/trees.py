@@ -131,4 +131,63 @@ def has_path_depth(graph, source, destination, visited):
 
 """
 Undirected path
+
+Given a graph, find the number of connected components
+ - Pick a node
+
+ - Do a traversal as far as you can
+ - Mark things as visited
+ - Increment count by 1
+ - Pick the next node 
+ - If node has been traveled to, skip
+ - loop till all nodes have been visited
 """
+
+graph = {0: [8, 1, 5],
+         1: [0],
+         5: [0, 8],
+         8: [0, 5],
+         2: [3, 4],
+         3: [2, 4],
+         4: [3, 2]}
+
+
+def explore(graph, current, visited):
+    if current in visited:
+        return False
+
+    visited.add(current)
+
+    for i in graph[current]:
+        explore(graph, i, visited)
+
+    return True
+
+
+def get_connected_component_count(graph):
+    visited = {}
+    count = 0
+
+    for node in graph:
+        if explore(graph, node, visited):
+            count += 1
+
+    return count
+
+
+###
+"""
+Largest component
+"""
+
+graph = {
+    '0': ['8', '1', '5'],
+    '1': ['0'],
+    '5': ['0', '8'],
+    '8': ['0', '5'],
+    '2': ['3', '4'],
+    '3': ['2', '4'],
+    '4': ['3', '2']
+}
+"""
+https://youtu.be/tWVWeAqZ0WU?t=4738"""
