@@ -1,5 +1,6 @@
 # Overview
-This repo tracks my progress in learning algorithms. It contains helpful resources, practice questions, and my solutions to said practice questions.
+This repo tracks my progress in learning algorithms. 
+It contains helpful resources, practice questions, and my solutions to said practice questions.
 
 # Online algo practice
 Kattis - https://open.kattis.com/

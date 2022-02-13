@@ -1,6 +1,5 @@
 """
 The same as adjacency list. The difference is, the function add_edge takes in one more argument: weight.
-
 """
 
 adj_list = {}
