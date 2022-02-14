@@ -1,33 +1,39 @@
 """https://www.hackerrank.com/challenges/torque-and-development/problem?isFullScreen=true"""
 
 """
-minimum cost problem
-
-Find out number of connected components
-For each connected component, build 1 library
-Build roads between all connected components
-Ensure built roads do not create an infinite loop
-
-Minimal spanning tree problem
- - Add node
- - Check if cycle is formed
- - If cycle formed, discard
- - Else, continue
- - Return when all nodes traversed
-
-For each connected component:
- - Get cost of building roads + 1 library
- - Get cost of building library
- - Return minimum cost
-
-Add all costs up for all components
-
-
+Steps
+ - Create adj list
+ - Get all connected components
+ - For each connected component:
+  - Get cost of building 1 library + minimum spanning treee
+  - Get cost of building library in all cities
+  - Return the minimum for this
+  - Sum up minimum for all connected components
 """
 
+
+from sqlite3 import connect
 c_road = 2  # cost of building road
 c_lib = 3  # cost of building library
 cities = [[1, 2], [3, 1], [2, 3]]
+
+
+def get_build_library_cost(adj_list, c_lib):
+    nodes = len(adj_list)
+    MST_paths = nodes - 1
+    return c_lib * MST_paths
+
+
+def get_build_roads_cost(adj_list, c_road, c_lib):
+    nodes = len(adj_list)
+    MST_paths = nodes - 1
+    return (c_lib + c_road * MST_paths)
+
+
+def get_cheapest_build(adj_list, c_road, c_lib):
+    build_roads_cost = get_build_roads_cost(adj_list, c_road, c_lib)
+    build_library_cost = get_build_library_cost(adj_list, c_lib)
+    return build_roads_cost if build_roads_cost < build_library_cost else build_library_cost
 
 
 def create_adj_list(cities):
@@ -35,10 +41,6 @@ def create_adj_list(cities):
     for i in cities:
         adj_list[i[0]] = [i[1]]
     return adj_list
-
-
-def get_min_span_tree(adj_list):
-    pass
 
 
 test = create_adj_list(cities)
