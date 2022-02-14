@@ -12,7 +12,6 @@ Steps
 """
 
 
-from sqlite3 import connect
 c_road = 2  # cost of building road
 c_lib = 3  # cost of building library
 cities = [[1, 2], [3, 1], [2, 3]]
