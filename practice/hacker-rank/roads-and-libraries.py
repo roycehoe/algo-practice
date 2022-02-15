@@ -42,6 +42,20 @@ def create_adj_list(cities):
     return adj_list
 
 
+def create_component_list(adj_list):
+    component_list = []
+    visited = set()
+
+    for current_node in adj_list:
+        if current_node not in visited:
+            visited.add(current_node)
+
+        neighbour_nodes = adj_list.get(current_node)
+        for neighbour_node in neighbour_nodes:
+            if neighbour_node not in visited:
+                visited.add(neighbour_node)
+
+
 test = create_adj_list(cities)
 print(test)
 
