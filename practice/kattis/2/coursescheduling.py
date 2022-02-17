@@ -1,6 +1,9 @@
 """https://open.kattis.com/problems/coursescheduling"""
 
 
+from collections import OrderedDict
+
+
 n = int(input())
 
 """
@@ -37,7 +40,10 @@ for i in range(0, n):
         applied.add(entry)
         ans = increment_course_count(ans, course)
 
-ans = dict(sorted(ans.items(), key=lambda item: item[1], reverse=True))
+ans = {val[0]: val[1]
+       for val in sorted(ans.items(), key=lambda x: (-x[1], x[0]))}
+
+ans = OrderedDict(ans)
 
 
 for k, v in ans.items():
