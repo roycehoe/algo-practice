@@ -4,28 +4,32 @@ temp = input("").split()
 temp = [int(i) for i in temp]
 b, x, y = temp[:6], temp[6], temp[7]
 
-largest_h = max(b)
-b.remove(largest_h)
+pos = {0, 1, 2, 3, 4, 5}
+
+iter = [[0, 1, 2], [0, 1, 3], [0, 1, 4], [0, 1, 5], [0, 2, 1], [0, 2, 3], [0, 2, 4], [0, 2, 5], [0, 3, 1], [0, 3, 2], [0, 3, 4], [0, 3, 5], [0, 4, 1], [0, 4, 2], [0, 4, 3], [0, 4, 5], [0, 5, 1], [0, 5, 2], [0, 5, 3], [0, 5, 4], [1, 0, 2], [1, 0, 3], [1, 0, 4], [1, 0, 5], [1, 2, 0], [1, 2, 3], [1, 2, 4], [1, 2, 5], [1, 3, 0], [1, 3, 2], [1, 3, 4], [1, 3, 5], [1, 4, 0], [1, 4, 2], [1, 4, 3], [1, 4, 5], [1, 5, 0], [1, 5, 2], [1, 5, 3], [1, 5, 4], [2, 0, 1], [2, 0, 3], [2, 0, 4], [2, 0, 5], [2, 1, 0], [2, 1, 3], [2, 1, 4], [2, 1, 5], [2, 3, 0], [2, 3, 1], [2, 3, 4], [2, 3, 5], [2, 4, 0], [2, 4, 1], [2, 4, 3], [2, 4, 5], [2, 5, 0], [2, 5, 1], [2, 5, 3], [2, 5, 4], [
+    3, 0, 1], [3, 0, 2], [3, 0, 4], [3, 0, 5], [3, 1, 0], [3, 1, 2], [3, 1, 4], [3, 1, 5], [3, 2, 0], [3, 2, 1], [3, 2, 4], [3, 2, 5], [3, 4, 0], [3, 4, 1], [3, 4, 2], [3, 4, 5], [3, 5, 0], [3, 5, 1], [3, 5, 2], [3, 5, 4], [4, 0, 1], [4, 0, 2], [4, 0, 3], [4, 0, 5], [4, 1, 0], [4, 1, 2], [4, 1, 3], [4, 1, 5], [4, 2, 0], [4, 2, 1], [4, 2, 3], [4, 2, 5], [4, 3, 0], [4, 3, 1], [4, 3, 2], [4, 3, 5], [4, 5, 0], [4, 5, 1], [4, 5, 2], [4, 5, 3], [5, 0, 1], [5, 0, 2], [5, 0, 3], [5, 0, 4], [5, 1, 0], [5, 1, 2], [5, 1, 3], [5, 1, 4], [5, 2, 0], [5, 2, 1], [5, 2, 3], [5, 2, 4], [5, 3, 0], [5, 3, 1], [5, 3, 2], [5, 3, 4], [5, 4, 0], [5, 4, 1], [5, 4, 2], [5, 4, 3]]
+
+first_ans = 0
+second_ans = 0
 
 
-def is_tower(x, y, height):
-    return height == x or y == height
+for i in iter:
+    for j in i:
+        first_ans += b[j]
+    if first_ans == x:
+        first = set(i)
+        second = pos - first
+        for k in second:
+            second_ans += b[k]
+            if second_ans == y:
+                break
+    else:
+        first_ans = 0
+        second_ans = 0
 
+first = sorted([b[i] for i in first], reverse=True)
+second = sorted([b[i] for i in second], reverse=True)
+ans = first + second
+ans = [str(i) for i in ans]
 
-for i in range(0, len(b)):
-    for j in range(0, len(b)):
-        if i != j:
-            first_box = b[i]
-            second_box = b[j]
-            height = largest_h + first_box + second_box
-            if is_tower(x, y, height):
-                ans = [largest_h, first_box, second_box]
-
-b.remove(ans[1])
-b.remove(ans[2])
-ans.sort(reverse=True)
-b.sort(reverse=True)
-
-ans = ans + b
-
-print(" ".join(map(str, ans)))
+print(" ".join(ans))
