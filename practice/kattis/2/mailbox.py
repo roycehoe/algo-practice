@@ -54,7 +54,8 @@ def mailbox_search(floor, ceiling, x, mailbox):
         print({'guess': guess,
                'ceiling': ceiling,
                'floor': floor,
-               'fireworks': fireworks})
+               'fireworks': fireworks,
+               'mailbox': mailbox})
 
         if guess_too_high(guess, x):
             ceiling = lower_ceiling(guess)
