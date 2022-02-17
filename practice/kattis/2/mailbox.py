@@ -1,55 +1,69 @@
 """https://open.kattis.com/problems/mailbox"""
 
-"""
-m is how many firecrackers the mailbox can withstand
+from math import ceil
 
-Test at 50.
-    If blow up, m is < 50
-        Test at 25
-        if blow up
-            m is < 25
+"""
+Binary search tree
+
+Ceiling
+Floor
+Guess
+Number
+
+If guess is too high, lower ceiling
+If guess is too lower, raise floor
+If guess is correct, break
+
+"""
+
+
+def guess_too_high(guess, number):
+    return guess > number
+
+
+def raise_floor(guess):
+    return guess - 1
+
+
+def lower_ceiling(guess):
+    return guess + 1
+
+
+def bin_search(floor, ceiling, x):
+    count = 0
+    guess = 10e9
+
+    while guess != x:
+        count += 1
+        guess = (floor + ceiling) // 2
+        if guess_too_high(guess, x):
+            ceiling = lower_ceiling(guess)
         else:
-            m is 25 to 50
-    If no blow up, m is >= 50
+            floor = raise_floor(guess)
+
+    return count
 
 
+def mailbox_search(floor, ceiling, x, mailbox):
+    guess = 10e9
+    fireworks = 0
 
-"""
+    while guess != x:
+        guess = (floor + ceiling) // 2
+        fireworks += guess
+        print({'guess': guess,
+               'ceiling': ceiling,
+               'floor': floor,
+               'fireworks': fireworks})
 
-# n = int(input(''))
-# data = []
+        if guess_too_high(guess, x):
+            ceiling = lower_ceiling(guess)
+            mailbox -= 1
+        else:
+            floor = raise_floor(guess)
 
-# for i in range(0, n):
-#     k, m = input('').split()
-#     k = int(k)
-#     m = int(m)
-#     data.append({k, m})
-
-
-from math import ceil, floor
-k = 3
-m = 73
-
-upper = 100
-lower = 1
-
-ans = 0
-guess = 0
+        if mailbox <= 1:
+            break
 
 
-def cannot_widstand(guess, m):
-    return guess > m
-
-
-while k != 1:
-    print(guess)
-    guess = ceil((upper + lower)/2)
-    ans += guess
-
-    if cannot_widstand(guess, m):
-        upper = guess
-        k -= 1
-    else:
-        lower = guess
-
-print(guess)
+mailbox_search(1, 100, 73, 3)
