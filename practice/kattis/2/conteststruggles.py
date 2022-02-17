@@ -17,4 +17,4 @@ else:
 
     ans = (dif_sum - solved_sum)/remaining_qns
 
-    print(ans if ans <= 100 else "impossible")
+    print(ans if ans <= 100 or ans >= 0 else "impossible")
