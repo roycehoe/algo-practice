@@ -41,7 +41,7 @@ def get_connected_nodes(nodes, start):
 
 
 def get_cheapest_option(path, c_road, c_lib):
-    tc_road = (len(path) - 1) * c_road
+    tc_road = ((len(path) - 1) * c_road) + c_lib
     tc_lib = len(path) * c_lib
     return tc_lib if tc_lib < tc_road else tc_road
 
@@ -49,35 +49,30 @@ def get_cheapest_option(path, c_road, c_lib):
 #########
 
 
-n = 6
+q = int(input())
+for i in range(0, q):
+    n, m, c_lib, c_road = map(int, input().split())
 
-c_lib = 2
-c_road = 5
-ans = 0
+    ans = 0
+    nodes = {}
+    paths = []
+    visited = set()
 
-nodes = {}
+    for j in range(0, m):
+        parent, child = input().split()
+        parent = int(parent)
+        child = int(child)
+        nodes = add_node(nodes, parent, child)
+        nodes = add_node(nodes, child, parent)
 
-paths = []
-visited = set()
+    for node in nodes:
+        if node not in visited:
+            connected_nodes = get_connected_nodes(nodes, node)
+            for connected_node in connected_nodes:
+                visited.add(connected_node)
+            paths.append(connected_nodes)
 
+    for path in paths:
+        ans += get_cheapest_option(path, c_road, c_lib)
 
-for i in range(0, n):
-    parent, child = input().split()
-    parent = int(parent)
-    child = int(child)
-    nodes = add_node(nodes, parent, child)
-    nodes = add_node(nodes, child, parent)
-
-
-for node in nodes:
-    if node not in visited:
-        connected_nodes = get_connected_nodes(nodes, node)
-        for connected_node in connected_nodes:
-            visited.add(connected_node)
-        paths.append(connected_nodes)
-
-
-for path in paths:
-    ans += get_cheapest_option(path, c_road, c_lib)
-
-print(ans)
+    print(ans)
