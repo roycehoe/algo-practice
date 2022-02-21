@@ -20,10 +20,6 @@ show all combinations. That is my answer
 """
 
 
-def can_give_change(n, denomination):
-    return False if n % denomination else True
-
-
 # n = 5
 # c = [1, 2, 3, 4, 5]
 
@@ -56,26 +52,35 @@ for [1,2]:
 I NEED A RECURSIVE FUNCTION. Function might change (n)
 """
 
-n = 6
+
+def can_give_change(n, denomination):
+    return False if n % denomination else True
+
+
+n = 10
+c = [1, 2, 3, 5, 10]
+
+
+def get_change(n, c):
+    if len(c) <= 1:
+        if can_give_change(n, c[0]):
+            return 1
+        return 0
+
+    if can_give_change(n, c[0]):
+        return 1 + get_change(n, c[1::])
+    return get_change(n, c[1::])
+
+
+n = 10
 c = [1, 2]
 
 
-def main(c, n):
-    ans = 0
-
-    for i in c:
-        if can_give_change(n, i):
-            ans += 1
-
-    return ans
+def test(n, c):
+    print(n)
+    if n == 0:
+        return 0
+    return test(n-1, c)
 
 
-# print(main(c, n))
-
-def factorial(n):
-    if n <= 1:
-        return 1
-    return n + factorial(n-1)
-
-
-print(factorial(5))
+print(test(n, c))
