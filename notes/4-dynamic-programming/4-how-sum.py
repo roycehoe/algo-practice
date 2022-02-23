@@ -10,28 +10,22 @@ https://www.youtube.com/watch?v=oBt53YbR9Kk&t=2341s
 """
 
 
-import functools
-
-
-def how_sum(target, num_array):
+def how_sum(target, nums):
     if target == 0:
         return []
     if target < 0:
         return None
 
-    for num in num_array:
+    for num in nums:
         remainder = target - num
-        remainder_result = how_sum(remainder, num_array)
-        if remainder_result is not None:
-            return [*remainder_result, num]
-        # Unpack operator used above to unpack whatever elements are in
-        # the remainder_result list
+        remainer_result = how_sum(remainder, nums)
+        if remainer_result is not None:
+            return [*remainer_result, num]
 
     return None
 
 
-@functools.cache
-def how_sum(target, num_array, memo={}):
+def how_sum(target, nums, memo={}):
     if target in memo:
         return memo.get(target)
 
@@ -40,12 +34,12 @@ def how_sum(target, num_array, memo={}):
     if target < 0:
         return None
 
-    for num in num_array:
+    for num in nums:
         remainder = target - num
-        remainder_result = how_sum(remainder, num_array, memo={})
-        if remainder_result is not None:
-            memo[target] = [*remainder_result, num]
-            return memo[target]
+        remainer_result = how_sum(remainder, nums, memo)
+        if remainer_result is not None:
+            memo[target] = [*remainer_result, num]
+            return [*remainer_result, num]
 
     memo[target] = None
     return None
