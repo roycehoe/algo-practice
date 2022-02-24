@@ -1,86 +1,47 @@
 """https://www.hackerrank.com/challenges/coin-change/problem?isFullScreen=true"""
 
-"""
-n - amount to make change for
-c - available coin denominations
-
-Tips:
- - Store previously computed solutions
-
-n = 5
-c = [a,b,c,d,e]
-
-find a combination that using just [a], I can get 5
-find a combination that using [a,b], I can get 5
-find a combination that using [a,b, c], I can get 5
-find a combination that using [a,b, c, d], I can get 5
-find a combination that using [a,b, c, d, e], I can get 5
-
-show all combinations. That is my answer
-"""
-
-
-# n = 5
-# c = [1, 2, 3, 4, 5]
-
-# ans = 0
-# for i in c:
-#     if can_give_change(n, i):
-#         ans += 1
-
+"""https://www.ideserve.co.in/learn/coin-change-problem-number-of-ways-to-make-change"""
 
 """
-Base case done. Now I need to somehow create a list of 2 numbers, and then see if I can create n with them
+n = 50
+c = {1,5,10,20}
+
+ans = 
+get ways to make change of 50 using 0 coins of 20
++ get ways to make change of 50 using 1 coin of 20 with {1,5,10}
++ get ways to make change of 50 using 2 coins of 20 with {1,5,10}
+
+ans = 
++ get ways to make change of 50 using 0 coins of 20 with {1,5,10}
++ get ways to make change of 30 using 0 coins of 20 with {1,5,10}
++ get ways to make change of 10 using 0 coins of 20 with {1,5,10}
+
 """
 
 
-"""
-I think I have the solution. Lets say:
-n = 6
-c = [1,2,3]
+from re import L
+n = 3
+c = [8, 3, 1, 2]
 
-get case for [1]
-get case for [2]
-get case for [3]
+n = 4
+c = [1, 2, 3]
 
-for [1,2]:
-    If 1 appears 1 time, can I get n? ie. If n = 5
-    If 1 appears 2 times, can I get n? ie. if n = 4
-    If 1 appears 3 times, can I get n? ie. if n = 3
-    If 1 appears 4 times, can I get n? ie. if n = 2
-
-I NEED A RECURSIVE FUNCTION. Function might change (n)
-"""
+# n = 50
+# c = [20, 10, 5, 1]
 
 
-def can_give_change(n, denomination):
-    return False if n % denomination else True
-
-
-n = 10
-c = [1, 2, 3, 5, 10]
+# first iteration
 
 
 def get_change(n, c):
-    if len(c) <= 1:
-        if can_give_change(n, c[0]):
-            return 1
-        return 0
+    first_num = c[0]
+    remainder = n
+    while remainder >= 0:
+        print(remainder, "call recursive fn")
+        remainder = remainder - first_num
+        # do something with the remainder
 
-    if can_give_change(n, c[0]):
-        return 1 + get_change(n, c[1::])
-    return get_change(n, c[1::])
-
-
-n = 10
-c = [1, 2]
+# first iteration
 
 
-def test(n, c):
-    print(n)
-    if n == 0:
-        return 0
-    return test(n-1, c)
-
-
-print(test(n, c))
+print(get_change(n, c))
