@@ -17,6 +17,10 @@ def best_sum(target, nums):
     for num in nums:
         remainder = target - num
         remainder_combination = best_sum(remainder, nums)
+        #for recursive functions, shortest combination is returned
+        #and assigned as remainder_combination
+
+        #for top level,
         if remainder_combination is not None:
             combination = [*remainder_combination, num]
 
