@@ -20,5 +20,4 @@ for element in array:
             else:
                 is_no_swap_made = True
 
-
 print(array)

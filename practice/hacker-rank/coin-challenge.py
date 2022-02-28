@@ -6,7 +6,6 @@ c = [8, 3, 1, 2]
 c_count = len(c)
 ans_table = [0 for i in range(n+1)]
 ans_table[0] = 1
-print(ans_table)
 
 for coin_index in range(c_count):
     current_coin_value = c[coin_index]
