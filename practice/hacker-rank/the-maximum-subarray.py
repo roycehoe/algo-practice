@@ -2,12 +2,23 @@ import itertools
 
 
 arr = [-1, 2, 3, -4, 5, 10]
-arr = [2, -1, 2, 3,  4, -5]
-arr = [-2, -3, -1, -4, -6]
-arr = [2, -1, 2, 3, 4, -5]
-arr = [0, 0, 0, 1, -1]
-arr = [1, -1, -1, -1, -1, 5]
-arr = [-2387513869853631, 349878693257425, -23434261, -1253623436, 3451, 5]
+
+
+"""
+Solution probably inefficient
+New implementation.
+
+Take entire array as default ans. 
+    pop 1 from back. Is still best solution?
+    pop 1 from front. Is still best solution?
+
+pop 1 from back and front. This is the new array.
+    pop 1 from back. Is still best solution?
+    pop 1 from front. Is still best solution?
+
+until array is empty
+
+"""
 
 ans_list = []
 arr_count = len(arr)
