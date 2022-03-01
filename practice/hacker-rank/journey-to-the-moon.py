@@ -24,19 +24,25 @@ ans = 4 * 2
 """
 
 
+# n = 5
+# astronaut = [[0, 1], [2, 3], [0, 4]]
+import itertools
 from math import factorial
-n = 5
-astronaut = [[0, 1], [2, 3], [0, 4]]
+n = 10000
+astronaut = [[0, 2], [0, 2], [0, 0], [2, 0]]
+astronaut = [[0, 2]]
 adj_list = {}
 
 for i in range(n):
     adj_list[i] = []
 
 for x, y in astronaut:
-    if y not in adj_list[x]:
-        adj_list[x].append(y)
-    if x not in adj_list[y]:
-        adj_list[y].append(x)
+    if x != y:
+        if y not in adj_list[x]:
+            adj_list[x].append(y)
+        if x not in adj_list[y]:
+            adj_list[y].append(x)
+
 
 visited = set()
 stack = []
@@ -59,21 +65,11 @@ for start_node in range(n):
 
         ans_list.append(count)
 
-non_wildcard_ans = 1
-for i in ans_list:
-    if i != 1:
-        non_wildcard_ans *= i
-
-wildcard_ans = 0
-wildcard_count = 0
-for i in ans_list:
-    if i == 1:
-        wildcard_count += 1
-
-wildcard_ans = 0 if wildcard_count <= 1 else factorial(wildcard_count)
-
-wildcard_with_non_wildcard_ans = wildcard_count * non_wildcard_ans
-ans = wildcard_with_non_wildcard_ans + wildcard_ans + non_wildcard_ans
-
 print(ans_list)
+
+ans = 0
+ans_list = list(itertools.combinations(ans_list, 2))
+for i in ans_list:
+    ans += i[0] * i[1]
+
 print(ans)
