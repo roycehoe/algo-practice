@@ -1,43 +1,41 @@
 import itertools
+from re import A
 
 
 arr = [-1, 2, 3, -4, 5, 10]
+arr = [1, 2, 3, 4]
+arr = [-2, -3, -1, -4, -6]
+arr = [1, -1, -1, -1, -1, 5, -2, 100, 54, -9]
+# arr = [-10]
+# arr = [1]
 
 
 """
 Solution probably inefficient
 New implementation.
 
-Take entire array as default ans. 
-    pop 1 from back. Is still best solution?
-    pop 1 from front. Is still best solution?
+Create arrays that are flanked by positive numbers
+compare 3 arrays:
+ - The current array
+ - The array with the righthand side removed till the next positive number
+ - The array with the lefthand side removed till the next positive number
 
-pop 1 from back and front. This is the new array.
-    pop 1 from back. Is still best solution?
-    pop 1 from front. Is still best solution?
-
-until array is empty
-
+If the largest array is the current array, return the current array
+If the second or third array is the largest array, that is now the current array
 """
 
-ans_list = []
-arr_count = len(arr)
 
-for i in range(0, arr_count+1):
-    for j in range(0, arr_count+1):
-        if arr[i:j] != []:
-            ans_list.append(arr[i:j])
+def get_largest_array(*arrs):
+    max_arr = []
+    arrs = list(arrs)
 
+    for i in range(len(arrs)):
+        current_max = sum(max_arr)
+        possible_max = sum(arrs[i])
+        if possible_max >= current_max:
+            max_arr = arrs[i]
 
-first_ans = -10e9
-ans = ()
-second_ans = 0
-
-
-for i in ans_list:
-    first_ans = max(first_ans, sum(i))
-    if first_ans == sum(i):
-        ans = i
+    return max_arr
 
 
 def is_all_negative(arr):
@@ -48,12 +46,23 @@ def is_all_negative(arr):
     return True
 
 
-if is_all_negative(arr):
-    second_ans = min(ans)
-else:
-    for i in arr:
-        if i >= 0:
-            second_ans += i
+def get_next_positive_number_index(arr, reverse=False):
+    if reverse:
 
-print(ans)
-print(first_ans, second_ans)
+        for i in range(len(arr)-1, 0, -1):
+            if arr[i] >= 0:
+                return i
+
+    for i in range(len(arr)-1):
+        if arr[i] >= 0:
+            return i
+
+
+right_index = get_next_positive_number_index(arr)
+left_index = get_next_positive_number_index(arr, reverse=True)
+
+right_array = arr[right_index:]
+left_array = arr[:left_index]
+
+print(right_array)
+print(left_array)
