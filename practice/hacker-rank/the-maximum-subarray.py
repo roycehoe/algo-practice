@@ -47,6 +47,11 @@ def is_all_negative(arr):
 
 
 def get_next_positive_number_index(arr, reverse=False):
+    """
+    To fix. This function only returns the next positive number index
+    If an array starts or ends with a positive number, it should get the next one, not the starting/ending
+    number index
+    """
     if reverse:
 
         for i in range(len(arr)-1, 0, -1):
