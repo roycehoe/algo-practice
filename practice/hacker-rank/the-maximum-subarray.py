@@ -5,69 +5,81 @@ from re import A
 arr = [-1, 2, 3, -4, 5, 10]
 arr = [1, 2, 3, 4]
 arr = [-2, -3, -1, -4, -6]
-arr = [1, -1, -1, -1, -1, 5, -2, 100, 54, -9]
-# arr = [-10]
-# arr = [1]
+arr = [-5, 1, -1, -1, -1, -1, 5, -2, 100, 54, -9]
 
 
-"""
-Solution probably inefficient
-New implementation.
-
-Create arrays that are flanked by positive numbers
-compare 3 arrays:
- - The current array
- - The array with the righthand side removed till the next positive number
- - The array with the lefthand side removed till the next positive number
-
-If the largest array is the current array, return the current array
-If the second or third array is the largest array, that is now the current array
-"""
-
-
-def get_largest_array(*arrs):
-    max_arr = []
-    arrs = list(arrs)
-
-    for i in range(len(arrs)):
-        current_max = sum(max_arr)
-        possible_max = sum(arrs[i])
-        if possible_max >= current_max:
-            max_arr = arrs[i]
-
-    return max_arr
-
-
-def is_all_negative(arr):
-    for i in arr:
-        if i >= 1:
-            return False
-
-    return True
-
-
-def get_next_positive_number_index(arr, reverse=False):
-    """
-    To fix. This function only returns the next positive number index
-    If an array starts or ends with a positive number, it should get the next one, not the starting/ending
-    number index
-    """
-    if reverse:
-
-        for i in range(len(arr)-1, 0, -1):
-            if arr[i] >= 0:
-                return i
-
+def remove_left_negative_numbers(arr):
     for i in range(len(arr)-1):
         if arr[i] >= 0:
-            return i
+            return arr[i:]
 
 
-right_index = get_next_positive_number_index(arr)
-left_index = get_next_positive_number_index(arr, reverse=True)
+def remove_right_negative_numbers(arr):
+    for i in range(len(arr)-1, 0, -1):
+        if arr[i] >= 0:
+            return arr[:i+1]
 
-right_array = arr[right_index:]
-left_array = arr[:left_index]
 
-print(right_array)
-print(left_array)
+def remove_left_positive_numbers(arr):
+    for i in range(len(arr)-1):
+        if arr[i] <= 0:
+            return arr[i:]
+
+
+def remove_right_positive_numbers(arr):
+    for i in range(len(arr)-1, 0, -1):
+        if arr[i] <= 0:
+            return arr[:i+1]
+
+
+def get_base_arr(arr):
+    if arr == []:
+        return []
+    arr = remove_left_negative_numbers(arr)
+    arr = remove_right_negative_numbers(arr)
+    return arr
+
+
+def get_right_arr(arr):
+    if arr == []:
+        return []
+    arr = remove_left_positive_numbers(arr)
+    arr = get_base_arr(arr)
+    return arr
+
+
+def get_left_arr(arr):
+    if arr == []:
+        return []
+    arr = remove_right_positive_numbers(arr)
+    arr = get_base_arr(arr)
+    return arr
+
+
+base_arr = get_base_arr(arr)
+right_arr = get_right_arr(base_arr)
+left_arr = get_left_arr(base_arr)
+
+
+def get_largest_arr(base_arr, right_arr, left_arr):
+    base_sum, right_sum, left_sum = sum(
+        base_arr), sum(right_arr), sum(left_arr)
+    max_sum = max(base_sum, right_sum, left_sum)
+
+    if max_sum == base_sum:
+        return base_arr
+    elif max_sum == right_sum:
+        return right_arr
+    else:
+        return left_arr
+
+
+def get_largest_subarr(arr):
+    base_arr = get_base_arr(arr)
+    right_arr = get_right_arr(base_arr)
+    left_arr = get_left_arr(base_arr)
+
+    return get_largest_arr(base_arr, get_largest_subarr(right_arr), get_largest_subarr(left_arr))
+
+
+print(get_largest_subarr(arr))
