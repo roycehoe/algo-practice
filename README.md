@@ -14,3 +14,9 @@ Hacker Rank - https://www.hackerrank.com/
 # My profiles
 
 Kattis - https://open.kattis.com/users/royce-hoe/
+
+
+# Useful resources
+
+Tech interview handbook - https://github.com/yangshun/tech-interview-handbook
+Data structures  - https://github.com/sachuverma/DataStructures-Algorithms
